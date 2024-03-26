@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.auto.drive;
 
 import androidx.annotation.NonNull;
 
+import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.localization.TwoTrackingWheelLocalizer;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -33,16 +34,17 @@ import java.util.List;
  *    \--------------/
  *
  */
+@Config
 public class TwoWheelTrackingLocalizer extends TwoTrackingWheelLocalizer {
     public static double TICKS_PER_REV = 8192.0;
     public static double WHEEL_RADIUS = 17.5/25.4; // in
     public static double GEAR_RATIO = 1; // output (wheel) speed / input (encoder) speed
 
-    public static double PARALLEL_X = 7; // X is the up and down direction
-    public static double PARALLEL_Y = -6; // Y is the strafe direction
+    public static double PARALLEL_X = 0; // X is the up and down direction
+    public static double PARALLEL_Y = -7; // Y is the strafe direction
 
-    public static double PERPENDICULAR_X = 0;                    // check all x and y coordinates
-    public static double PERPENDICULAR_Y = 6.68;
+    public static double PERPENDICULAR_X = 7;                    // check all x and y coordinates
+    public static double PERPENDICULAR_Y = 0;
 
     // Parallel/Perpendicular to the forward axis
     // Parallel wheel is parallel to the forward axis
@@ -60,7 +62,7 @@ public class TwoWheelTrackingLocalizer extends TwoTrackingWheelLocalizer {
         this.drive = drive;
 
         parallelEncoder = new Encoder(hardwareMap.get(DcMotorEx.class, "RB"));
-        perpendicularEncoder = new Encoder(hardwareMap.get(DcMotorEx.class, "LSR"));
+        perpendicularEncoder = new Encoder(hardwareMap.get(DcMotorEx.class, "frontEncoder"));
 
         // TODO: reverse any encoders using Encoder.setDirection(Encoder.Direction.REVERSE)
         perpendicularEncoder.setDirection(Encoder.Direction.REVERSE);
